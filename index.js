@@ -1,9 +1,19 @@
 const inquirer = require('inquirer');
 const db = require('./db/connection');
 const utils = require('util');
-require('console.table');
+
 db.query = utils.promisify(db.query);
 
+require('console.table');
+
+const logo = require('asciiart-logo');
+
+
+function init() {
+    const logoText = logo({ name: 'Employee Manager' }).render();
+    console.log(logoText);
+    startApp();
+}
 
 function startApp() {
     inquirer
@@ -53,8 +63,8 @@ function startApp() {
                     updateEmployeeRole();
                     break;
 
-                    default:
-                        process.exit(0);
+                default:
+                    process.exit(0);
             }
         });
 };
@@ -67,4 +77,15 @@ function viewDepartments() {
     })
 };
 
-startApp();
+
+function viewRoles() {
+    db.query(
+        `SELECT role.title, role.id as 'role id', role.salary, department.name as department from role LEFT JOIN department ON role.department_id = department.id`
+    ).then((result, err) => {
+        if (err) console.log(err);
+        console.table(result);
+        startApp();
+    })
+}
+
+init();
