@@ -7,12 +7,14 @@ db.query = utils.promisify(db.query);
 require('console.table');
 
 const logo = require('asciiart-logo');
+const chalk = require('chalk');
+
 
 init();
 
 function init() {
     const logoText = logo({ name: 'Employee Manager' }).render();
-    console.log(logoText);
+    console.log(chalk.magenta(logoText));
     startApp();
 }
 
@@ -112,7 +114,7 @@ function addDepartment(){
         .then(res => {
             let name = res.name;
             db.query('INSERT INTO department (name) VALUES (?)', [name])
-                .then(() => console.log(`\n ${name} department is added to the database \n`))
+                .then(() => console.log(chalk.green(`\n ${name} department is added to the database \n`)))
                 .then(() => startApp())
         })
 };
@@ -139,13 +141,13 @@ function addRole(){
             {
                 type: "list",
                 name: "department_id",
-                message: "Which department does the role fall in under?",
+                message: "Which department does the role belong to?",
                 choices: departmentChoices
             }
         ])
             .then(role => {
                 db.query("INSERT INTO role (title, salary, department_id) VALUES (?,?,?)", [role.title, role.salary, role.department_id])
-                    .then(() => console.log(`\n ${role.title} is added to the database \n`))
+                    .then(() => console.log(chalk.green(`\n ${role.title} is added to the database \n`)))
                     .then(() => startApp())
             })
     })
@@ -212,7 +214,7 @@ function addEmployee(){
                                             db.query("INSERT into employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)", 
                                             [employee.first_name, employee.last_name, employee.role_id, employee.manager_id]);
                                         })
-                                        .then(() => console.log(`\n ${firstName} ${lastName} is added to the database \n`))
+                                        .then(() => console.log(chalk.green(`\n ${firstName} ${lastName} is added to the database \n`)))
                                         .then(() => startApp())
                                 })
                         })
@@ -257,7 +259,7 @@ function updateEmployeeRole(){
                                 }
                             ])
                                 .then(res => db.query("UPDATE employee set role_id=? WHERE id=?", [res.roleId, employeeId]))
-                                .then(() => console.log("\n Employee's role is updated \n"))
+                                .then(() => console.log(chalk.green("\n Employee's role is updated \n")))
                                 .then(() => startApp())
                         });
                 });

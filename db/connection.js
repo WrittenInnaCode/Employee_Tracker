@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 require('dotenv').config();
+const chalk = require('chalk');
 
 // Connect to database
 const db = mysql.createConnection(
@@ -11,7 +12,7 @@ const db = mysql.createConnection(
       password: process.env.DB_PASSWORD,
       database: 'employee_tracker'
     },
-    console.log(`Connected to the employee_tracker database.`)
+    console.log(chalk.green('Connected to the employee tracker database.'))
   );
 
   db.connect(function (err) {
