@@ -6,12 +6,16 @@ db.query = utils.promisify(db.query);
 
 require('console.table');
 
+// ascii art creator
 const logo = require('asciiart-logo');
+
+// adds colors to strings in the terminal
 const chalk = require('chalk');
 
 
 init();
 
+// launches the app and prints ascii art logo at npm start
 function init() {
     const logoText = logo({ name: 'Employee Manager' }).render();
     console.log(chalk.magenta(logoText));
@@ -22,6 +26,7 @@ function startApp() {
     inquirer
         .prompt([
             {
+                //prompts that appear when the app is launched
                 type: "list",
                 name: "choice",
                 message: "What would you like to do?",
@@ -34,10 +39,12 @@ function startApp() {
                     "Add an employee",
                     "Update an employee role",
                     "Delete an employee",
+                    "Delete a department",
                     "Quit",
                 ]
             }
         ]).then((options) => {
+            //calls the functions that the user selected from the prompt
             switch (options.choice) {
                 case "View all departments":
                     viewDepartments();
@@ -71,6 +78,10 @@ function startApp() {
                     deleteEmployee();
                     break;
 
+                case "Delete a department":
+                    deleteDepartment();
+                    break
+
                 case "Quit":
                     process.exit(0);
                     break;
@@ -78,6 +89,7 @@ function startApp() {
         });
 };
 
+// View all DEPARTMENTS
 function viewDepartments() {
     db.query("SELECT * FROM department").then((result, err) => {
         if (err) console.error(err);
@@ -86,7 +98,7 @@ function viewDepartments() {
     })
 };
 
-
+// View all ROLES
 function viewRoles() {
     db.query(
         `SELECT role.title, role.id AS 'role id', role.salary, 
@@ -100,7 +112,7 @@ function viewRoles() {
     })
 };
 
-
+// View all EMPLOYEES
 function viewEmployees() {
     db.query(
         `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, 
@@ -115,6 +127,7 @@ function viewEmployees() {
     })
 };
 
+// ADD a new DEPARTMENT
 function addDepartment() {
     inquirer
         .prompt([
@@ -131,7 +144,7 @@ function addDepartment() {
         })
 };
 
-
+// ADD a new ROLE
 function addRole() {
     db.query("SELECT department.id, department.name FROM department;")
         .then((result) => {
@@ -165,7 +178,7 @@ function addRole() {
         })
 };
 
-
+// ADD a new EMPLOYEE
 function addEmployee() {
     inquirer
         .prompt([
@@ -190,6 +203,7 @@ function addEmployee() {
                         value: id
                     }));
                     inquirer
+                    //Select a role for new employee
                         .prompt({
                             type: "list",
                             name: "roleId",
@@ -207,6 +221,7 @@ function addEmployee() {
                                         value: id
                                     }));
 
+                                    //Select a manager for the new employee
                                     managerChoices.unshift({ name: "None", value: null });
                                     inquirer
                                         .prompt({
@@ -234,7 +249,7 @@ function addEmployee() {
         })
 };
 
-
+// Update employee's ROLE
 function updateEmployeeRole() {
     db.query("SELECT * FROM employee")
         .then((result) => {
@@ -244,6 +259,7 @@ function updateEmployeeRole() {
                 value: id
             }));
             inquirer
+            // Select an employee whose role you want to change
                 .prompt([
                     {
                         type: "list",
@@ -262,6 +278,7 @@ function updateEmployeeRole() {
                                 value: id
                             }));
                             inquirer
+                            // Select new role for that employee
                                 .prompt([
                                     {
                                         type: "list",
@@ -279,9 +296,11 @@ function updateEmployeeRole() {
 };
 
 
-//////// BONUS //////////
+
+///////// BONUS ///////////
 
 
+// Remove an employee from database
 function deleteEmployee() {
     db.query("SELECT employee.id, employee.first_name, employee.last_name FROM employee")
         .then((result) => {
@@ -301,8 +320,35 @@ function deleteEmployee() {
         ])
         .then(res => {
             db.query("DELETE FROM employee WHERE id = ?", [res.employeeId])
-                .then(() => console.log(chalk.red("\n Employee is deleted \n")))
+                .then(() => console.log(chalk.red(`\n Selected employee was deleted. \n`)))
                 .then(() => startApp())
         })
     })
 };
+
+
+// Remove a department from database
+function deleteDepartment(){
+    db.query("SELECT * FROM DEPARTMENT")
+    .then((result) => {
+        let departments = result;
+        const departmentChoices = departments.map(({ id, name }) => ({
+            name: name,
+            value: id
+        }));
+        inquirer
+        .prompt([
+            {
+                type: "list",
+                name: "departmentId",
+                message: "Which department do you want to delete?",
+                choices: departmentChoices
+            }
+        ])
+        .then(res => {
+            db.query("DELETE FROM department WHERE id = ?", [res.departmentId])
+                .then(() => console.log(chalk.red(`\n Selected department was deleted. \n`)))
+                .then(() => startApp())
+        })
+    })
+}
