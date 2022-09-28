@@ -12,7 +12,7 @@ const db = mysql.createConnection(
       password: process.env.DB_PASSWORD,
       database: 'employee_tracker'
     },
-    console.log(chalk.green('Connected to the employee tracker database.'))
+    console.log(chalk.green('Connected to the employee database.'))
   );
 
   db.connect(function (err) {
