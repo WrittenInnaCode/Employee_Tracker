@@ -1,7 +1,7 @@
 # Employee Tracker
 
-💻 [The repo can be found here.](https://github.com/WrittenInnaCode/Employee_Tracker) <br/>
-📺 [The walkthrough video can be seen here.](https://drive.google.com/file/d/1cH1TXfoxr3lshCsMHWP3k2lzU_CL-cNZ/view)
+💻 [The repo can be found here.](https://github.com/WrittenInnaCode/Employee_Tracker) <br/><br/>
+📺 [The walkthrough video can be seen here.]()
 
 <br/>
 
@@ -9,7 +9,7 @@
 * [Description](#description)
 * [Usage](#usage)
 * [Installation](#installation)
-* [Screenshot](#screenshot)
+* [Screenshots](#screenshots)
 * [Contributor](#contributor)
 * [Questions](#questions)
 
@@ -46,9 +46,24 @@ This app allows the user to:
 
 <br/>
 
-## Screenshot
+## Screenshots
 
-![alt screenshot]()
+![alt screenshot](/assets/img/01.png)
+<br/><br/>
+
+- View all employees, all departments and all roles:
+
+![alt screenshot](/assets/img/02.png)
+<br/><br/>
+
+- Add an employee and change an employee's role:
+
+![alt screenshot](/assets/img/03.png)
+<br/><br/>
+
+- Delete an employee and delete a department:
+
+![alt screenshot](/assets/img/04.png)
 <br/><br/>
 
 ## Contributor:
