@@ -1,7 +1,7 @@
 # Employee Tracker
 
 💻 [The repo can be found here.](https://github.com/WrittenInnaCode/Employee_Tracker) <br/><br/>
-📺 [The walkthrough video can be seen here.]()
+📺 [The walkthrough video can be seen here.](https://drive.google.com/file/d/1vr-zqlxnBwrkt8yWQ14ceHuF048aZcuH/view)
 
 <br/>
 
@@ -56,7 +56,7 @@ This app allows the user to:
 ![alt screenshot](/assets/img/02.png)
 <br/><br/>
 
-- Add an employee and change an employee's role:
+- Add a department, add a new role and add a new employee:
 
 ![alt screenshot](/assets/img/03.png)
 <br/><br/>
