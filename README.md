@@ -53,17 +53,17 @@ This app allows the user to:
 
 - View all employees, all departments and all roles:
 
-![alt screenshot](/assets/img/02.png)
+![alt screenshot](/assets/img/02a.png)
 <br/><br/>
 
 - Add a department, add a new role and add a new employee:
 
-![alt screenshot](/assets/img/03.png)
+![alt screenshot](/assets/img/03a.png)
 <br/><br/>
 
 - Delete an employee and delete a department:
 
-![alt screenshot](/assets/img/04.png)
+![alt screenshot](/assets/img/04a.png)
 <br/><br/>
 
 ## Contributor:
